@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>后台管理</title>
+		<meta charset="UTF-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+		<!-- basic styles -->
+
+		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+
+		<!-- page specific plugin styles -->
+
+		<link rel="stylesheet" href="assets/css/jquery-ui-1.10.3.full.min.css" />
+		<!-- fonts -->
+
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+
+		<!-- ace styles -->
+
+		<link rel="stylesheet" href="assets/css/ace.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+
+
+		<!--[if lte IE 8]>
+		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+
+		<!-- ace settings handler -->
+
+		<script src="assets/js/ace-extra.min.js"></script>
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<style>
+        li{
+            list-style: none;
+        }
+		.main-content {
+    		margin-left: 0px;
+		}
+		.ace-nav>li {
+			cursor: pointer;
+		}
+	</style>
+	<body>
+			<div class="navbar navbar-default" id="navbar">
+				<script type="text/javascript">
+					try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+				</script>
+	
+				<div class="navbar-container" id="navbar-container">
+					<div class="navbar-header pull-left">
+						<a href="#" class="navbar-brand">
+							<small>
+								<i class="icon-leaf"></i>
+								依薇蓝 Admin
+							</small>
+						</a><!-- /.brand -->
+					</div><!-- /.navbar-header -->
+	
+					<div class="navbar-header pull-right" role="navigation">
+						<ul class="nav ace-nav">
+							<li class="purple">
+								<a href="admin.html">
+									<i class="icon-bell-alt icon-animated-bell"></i>
+									<span>用户信息</span>
+								</a>
+							</li>
+	
+							<li class="green">
+								<a href="analyse.html">
+									<i class="icon-envelope icon-animated-vertical"></i>
+									<span>问卷统计</span>
+								</a>
+							</li>
+							<li class="light-blue">
+								<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+									<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
+									<span class="user-info">
+										<small>Welcome,</small>
+										Jason
+									</span>
+	
+									<i class="icon-caret-down"></i>
+								</a>
+	
+								<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+									<li id="logOut">
+										<a href="#">
+											<i class="icon-off"></i>
+											退出登录
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul><!-- /.ace-nav -->
+					</div><!-- /.navbar-header -->
+				</div><!-- /.container -->
+			</div>
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<!-- <a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a> -->
+				<div class="main-content">
+					<div class="page-content">
+								<div class="row">
+									<div class="col-xs-12">
+                                        <h3 class="header smaller lighter blue">问卷统计</h3>
+                                            <div>
+                                                <h2>1.您的年龄区间是在？</h2>
+                                                <ul>
+                                                    <li>
+                                                        <a href="#">
+                                                            <div class="clearfix">
+                                                                <span class="pull-left">18岁以下</span>
+                                                                <span class="pull-right" id="oneA_text"></span>
+                                                            </div>
+                    
+                                                            <div class="progress progress-mini">
+                                                                <div class="progress-bar" id="oneA"></div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                    
+                                                    <li>
+                                                        <a href="#">
+                                                            <div class="clearfix">
+                                                                <span class="pull-left">18-25岁</span>
+                                                                <span class="pull-right" id="oneB_text"></span>
+                                                            </div>
+                    
+                                                            <div class="progress progress-mini ">
+                                                                <div class="progress-bar progress-bar-danger" id="oneB"></div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                    
+                                                    <li>
+                                                        <a href="#">
+                                                            <div class="clearfix">
+                                                                <span class="pull-left">25-30岁</span>
+                                                                <span class="pull-right" id="oneC_text"></span>
+                                                            </div>
+                    
+                                                            <div class="progress progress-mini">
+                                                                <div class="progress-bar progress-bar-warning" id="oneC"></div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                    
+                                                    <li>
+                                                        <a href="#">
+                                                            <div class="clearfix">
+                                                                <span class="pull-left">30-35岁</span>
+                                                                <span class="pull-right" id="oneD_text"></span>
+                                                            </div>
+                    
+                                                            <div class="progress progress-mini progress-striped active">
+                                                                <div class="progress-bar progress-bar-success" id="oneD"></div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <div class="clearfix">
+                                                                <span class="pull-left">35-40岁</span>
+                                                                <span class="pull-right" id="oneE_text"></span>
+                                                            </div>
+                    
+                                                            <div class="progress progress-mini progress-striped active">
+                                                                <div class="progress-bar" id="oneE"></div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <div class="clearfix">
+                                                                <span class="pull-left">40岁以上</span>
+                                                                <span class="pull-right" id="oneF_text"></span>
+                                                            </div>
+                    
+                                                            <div class="progress progress-mini progress-striped active">
+                                                                <div class="progress-bar progress-bar-danger" id="oneF"></div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <h2>2.请您描述下您的皮肤特征？</h2>
+                                                <ul>
+                                                    <li>
+                                                        <a href="#">
+                                                            <div class="clearfix">
+                                                                <span class="pull-left">干燥，缺水</span>
+                                                                <span class="pull-right" id="twoA_text"></span>
+                                                            </div>
+                    
+                                                            <div class="progress progress-mini ">
+                                                                <div class="progress-bar" id="twoA"></div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                    
+                                                    <li>
+                                                        <a href="#">
+                                                            <div class="clearfix">
+                                                                <span class="pull-left">T区油，U区干</span>
+                                                                <span class="pull-right" id="twoB_text"></span>
+                                                            </div>
+                    
+                                                            <div class="progress progress-mini ">
+                                                                <div class="progress-bar progress-bar-danger" id="twoB"></div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                    
+                                                    <li>
+                                                        <a href="#">
+                                                            <div class="clearfix">
+                                                                <span class="pull-left">全脸泛油，易长痘</span>
+                                                                <span class="pull-right" id="twoC_text"></span>
+                                                            </div>
+                    
+                                                            <div class="progress progress-mini ">
+                                                                <div class="progress-bar progress-bar-warning" id="twoC"></div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                    
+                                                    <li>
+                                                        <a href="#">
+                                                            <div class="clearfix">
+                                                                <span class="pull-left">干燥，皮肤易过敏</span>
+                                                                <span class="pull-right" id="twoD_text"></span>
+                                                            </div>
+                    
+                                                            <div class="progress progress-mini progress-striped active">
+                                                                <div class="progress-bar progress-bar-success" id="twoD"></div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        <div>
+                                            <h2>3.您素颜时的肤色属于哪一种？</h2>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">白皙</span>
+                                                            <span class="pull-right" id="threeA_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar " id="threeA"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">粉嫩</span>
+                                                            <span class="pull-right" id="threeB_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar progress-bar-danger" id="threeB"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">暗黄</span>
+                                                            <span class="pull-right" id="threeC_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar progress-bar-warning" id="threeC"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">大麦色</span>
+                                                            <span class="pull-right" id="threeD_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini progress-striped active">
+                                                            <div class="progress-bar progress-bar-success" id="threeD"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h2>4.您的脸部有什么皮肤问题？（多选）</h2>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">黑头/毛孔</span>
+                                                            <span class="pull-right" id="fourA_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar " id="fourA"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left"> 黑眼圈/眼袋/脂肪粒/眼纹</span>
+                                                            <span class="pull-right" id="fourB_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar progress-bar-danger" id="fourB"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left"> 痘痘/痘印</span>
+                                                            <span class="pull-right" id="fourC_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar progress-bar-warning" id="fourC"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">干燥/紧绷</span>
+                                                            <span class="pull-right" id="fourD_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini progress-striped active">
+                                                            <div class="progress-bar progress-bar-success" id="fourD"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">暗黄/斑点</span>
+                                                            <span class="pull-right" id="fourE_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini progress-striped active">
+                                                            <div class="progress-bar" id="fourE"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left"> 皱纹</span>
+                                                            <span class="pull-right" id="fourF_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini progress-striped active">
+                                                            <div class="progress-bar progress-bar-danger" id="fourF"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">出油</span>
+                                                            <span class="pull-right" id="fourG_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini progress-striped active">
+                                                            <div class="progress-bar progress-bar-warning" id="fourG"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                            
+                                        <div>
+                                            <h2>5.您最想解决的皮肤问题是？</h2>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">敏感/脆弱</span>
+                                                            <span class="pull-right" id="fiveA_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini">
+                                                            <div class="progress-bar" id="fiveA"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">黑头粉刺/毛孔粗大/皮肤粗糙</span>
+                                                            <span class="pull-right" id="fiveB_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar progress-bar-danger" id="fiveB"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">痘痘/痘印</span>
+                                                            <span class="pull-right" id="fiveC_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar progress-bar-warning" id="fiveC"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">细纹/皮肤松弛</span>
+                                                            <span class="pull-right" id="fiveD_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini progress-striped active">
+                                                            <div class="progress-bar progress-bar-success" id="fiveD"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">暗黄/色斑</span>
+                                                            <span class="pull-right" id="fiveE_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini progress-striped active">
+                                                            <div class="progress-bar progress-bar" id="fiveE"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">黑眼圈/轻度眼袋/脂肪粒</span>
+                                                            <span class="pull-right" id="fiveF_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini progress-striped active">
+                                                            <div class="progress-bar progress-bar-danger" id="fiveF"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h2>6.您有没有对皮肤进行针对性护理？</h2>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">从无，现在想要护理</span>
+                                                            <span class="pull-right" id="sixA_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar " id="sixA"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">有，但效果不佳</span>
+                                                            <span class="pull-right" id="sixB_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar progress-bar-danger" id="sixB"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">有，皮肤逐渐改善</span>
+                                                            <span class="pull-right" id="sixC_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar progress-bar-warning" id="sixC"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h2>7.您以往选择护肤品的依据是？</h2>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">朋友推荐</span>
+                                                            <span class="pull-right" id="sevenA_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar " id="sevenA"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">实体店随意选</span>
+                                                            <span class="pull-right" id="sevenB_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar progress-bar-danger" id="sevenB"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">倾向于知名度高的大品牌</span>
+                                                            <span class="pull-right" id="sevenC_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini ">
+                                                            <div class="progress-bar progress-bar-warning" id="sevenC"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="clearfix">
+                                                            <span class="pull-left">了解护肤成分，选择适合自己具体肤质的</span>
+                                                            <span class="pull-right" id="sevenD_text"></span>
+                                                        </div>
+                
+                                                        <div class="progress progress-mini progress-striped active">
+                                                            <div class="progress-bar progress-bar-success" id="sevenD"></div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+								    </div>
+								
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+			</div><!-- /.main-container-inner -->
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="icon-double-angle-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+
+		<script src="assets/js/jquery-2.0.3.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<![endif]-->
+
+		<!--[if !IE]> -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/typeahead-bs2.min.js"></script>
+
+		<!-- page specific plugin scripts -->
+
+		<script src="assets/js/jquery.dataTables.min.js"></script>
+		<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
+
+		<!-- ace scripts -->
+
+		<script src="assets/js/ace-elements.min.js"></script>
+		<script src="assets/js/ace.min.js"></script>
+        <script src="assets/js/api.js"></script>
+
+		<!-- inline scripts related to this page -->
+
+		<script type="text/javascript">
+			jQuery(function($) {
+                //退出登录
+                $("#logOut").click(function(){
+                    sessionStorage.token="";
+                    location.href="login.html";
+                })
+                //progressbar
+                var one=[];
+                var two=[];
+                var three=[];
+                var four=[];
+                var five=[];
+                var six=[];
+                var seven=[];
+                var sum;
+                var oneA;
+                var oneB;
+                var oneC;
+                var oneD;
+                var oneE;
+                var oneF;
+                var oneG;
+               $.ajax({
+                    type: "POST",                                         //ajax的方式为post(get方式对传送数据长度有限制)
+                    url: api+"/survey/users/count",           //一般处理程序页面AddUser.ashx(在2中会写出该页面内容)
+                    dataType: "json",                                   //数据传回的格式为json
+                    contentType: "application/json",
+                    beforeSend:function(request){
+                        request.setRequestHeader("token",sessionStorage.token)
+                    },
+                    success: function (res) {
+                        if(res.resultCode==200){
+                            one = res.data[0];
+                            two = res.data[1];
+                            three = res.data[2];
+                            four = res.data[3];
+                            five = res.data[4];
+                            six = res.data[5];
+                            seven = res.data[6];
+                            // console.log(one)
+                            sum = one.A+one.B+one.C+one.D+one.E+one.F;
+                            //第一问
+                            oneA = Math.round((one.A/sum)*100);
+                            oneB = Math.round((one.B/sum)*100);
+                            oneC = Math.round((one.C/sum)*100);
+                            oneD = Math.round((one.D/sum)*100);
+                            oneE = Math.round((one.E/sum)*100);
+                            oneF = Math.round((one.F/sum)*100);
+                            $("#oneA_text").html(oneA+"%");
+                            $("#oneA").css("width",oneA+"%");
+                            $("#oneB_text").html(oneB+"%");
+                            $("#oneB").css("width",oneB+"%");
+                            $("#oneC_text").html(oneC+"%");
+                            $("#oneC").css("width",oneC+"%");
+                            $("#oneD_text").html(oneD+"%");
+                            $("#oneD").css("width",oneD+"%");
+                            $("#oneE_text").html(oneE+"%");
+                            $("#oneE").css("width",oneE+"%");
+                            $("#oneF_text").html(oneF+"%");
+                            $("#oneF").css("width",oneF+"%");
+                            // 第二问
+                            sum = two.A+two.B+two.C+two.D;
+                            oneA = Math.round((two.A/sum)*100);
+                            oneB = Math.round((two.B/sum)*100);
+                            oneC = Math.round((two.C/sum)*100);
+                            oneD = Math.round((two.D/sum)*100);
+                            $("#twoA_text").html(oneA+"%");
+                            $("#twoA").css("width",oneA+"%");
+                            $("#twoB_text").html(oneB+"%");
+                            $("#twoB").css("width",oneB+"%");
+                            $("#twoC_text").html(oneC+"%");
+                            $("#twoC").css("width",oneC+"%");
+                            $("#twoD_text").html(oneD+"%");
+                            $("#twoD").css("width",oneD+"%");
+                            // 第三问
+                            sum = three.A+three.B+three.C+three.D;
+                            oneA = Math.round((three.A/sum)*100);
+                            oneB = Math.round((three.B/sum)*100);
+                            oneC = Math.round((three.C/sum)*100);
+                            oneD = Math.round((three.D/sum)*100);
+                            $("#threeA_text").html(oneA+"%");
+                            $("#threeA").css("width",oneA+"%");
+                            $("#threeB_text").html(oneB+"%");
+                            $("#threeB").css("width",oneB+"%");
+                            $("#threeC_text").html(oneC+"%");
+                            $("#threeC").css("width",oneC+"%");
+                            $("#threeD_text").html(oneD+"%");
+                            $("#threeD").css("width",oneD+"%");
+                            // 第四问
+                            sum = four.A+four.B+four.C+four.D+four.E+four.F+four.G;
+                            oneA = Math.round((four.A/sum)*100);
+                            oneB = Math.round((four.B/sum)*100);
+                            oneC = Math.round((four.C/sum)*100);
+                            oneD = Math.round((four.D/sum)*100);
+                            oneE = Math.round((four.E/sum)*100);
+                            oneF = Math.round((four.F/sum)*100);
+                            oneG = Math.round((four.G/sum)*100);
+                            $("#fourA_text").html(oneA+"%");
+                            $("#fourA").css("width",oneA+"%");
+                            $("#fourB_text").html(oneB+"%");
+                            $("#fourB").css("width",oneB+"%");
+                            $("#fourC_text").html(oneC+"%");
+                            $("#fourC").css("width",oneC+"%");
+                            $("#fourD_text").html(oneD+"%");
+                            $("#fourD").css("width",oneD+"%");
+                            $("#fourE_text").html(oneE+"%");
+                            $("#fourE").css("width",oneE+"%");
+                            $("#fourF_text").html(oneF+"%");
+                            $("#fourF").css("width",oneF+"%");
+                            $("#fourG_text").html(oneG+"%");
+                            $("#fourG").css("width",oneG+"%");
+                            // 第五问
+                            sum = five.A+five.B+five.C+five.D+five.E+five.F;
+                            oneA = Math.round((five.A/sum)*100);
+                            oneB = Math.round((five.B/sum)*100);
+                            oneC = Math.round((five.C/sum)*100);
+                            oneD = Math.round((five.D/sum)*100);
+                            oneE = Math.round((five.E/sum)*100);
+                            oneF = Math.round((five.F/sum)*100);
+                            $("#fiveA_text").html(oneA+"%");
+                            $("#fiveA").css("width",oneA+"%");
+                            $("#fiveB_text").html(oneB+"%");
+                            $("#fiveB").css("width",oneB+"%");
+                            $("#fiveC_text").html(oneC+"%");
+                            $("#fiveC").css("width",oneC+"%");
+                            $("#fiveD_text").html(oneD+"%");
+                            $("#fiveD").css("width",oneD+"%");
+                            $("#fiveE_text").html(oneE+"%");
+                            $("#fiveE").css("width",oneE+"%");
+                            $("#fiveF_text").html(oneF+"%");
+                            $("#fiveF").css("width",oneF+"%");
+                            // 第六问
+                            sum = six.A+six.B+six.C;
+                            oneA = Math.round((six.A/sum)*100);
+                            oneB = Math.round((six.B/sum)*100);
+                            oneC = Math.round((six.C/sum)*100);
+                            $("#sixA_text").html(oneA+"%");
+                            $("#sixA").css("width",oneA+"%");
+                            $("#sixB_text").html(oneB+"%");
+                            $("#sixB").css("width",oneB+"%");
+                            $("#sixC_text").html(oneC+"%");
+                            $("#sixC").css("width",oneC+"%");
+                            // 第七问
+                            sum = seven.A+seven.B+seven.C+seven.D;
+                            oneA = Math.round((seven.A/sum)*100);
+                            oneB = Math.round((seven.B/sum)*100);
+                            oneC = Math.round((seven.C/sum)*100);
+                            oneD = Math.round((seven.D/sum)*100);
+                            $("#sevenA_text").html(oneA+"%");
+                            $("#sevenA").css("width",oneA+"%");
+                            $("#sevenB_text").html(oneB+"%");
+                            $("#sevenB").css("width",oneB+"%");
+                            $("#sevenC_text").html(oneC+"%");
+                            $("#sevenC").css("width",oneC+"%");
+                            $("#sevenD_text").html(oneD+"%");
+                            $("#sevenD").css("width",oneD+"%");
+						}else if(res.resultCode==402){
+				        	alert("登录认证过期")
+							location.href="login.html";
+						}else{
+							alert(res.message)
+						}
+                    },error:function(res){
+                        alert("请求失败");
+                    }
+                })
+			})
+		</script>
+</body>
+</html>

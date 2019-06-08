@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdou.survey.dao.AdminDao">
+    <resultMap id="AdminResult" type="com.gdou.survey.entity.Admin">
+        <result property="id" column="id"/>
+        <result property="userName" column="admin_name"/>
+        <result property="password" column="password"/>
+        <result property="userToken" column="admin_token"/>
+    </resultMap>
+
+    <insert id="addAdmin" parameterType="com.gdou.survey.entity.Admin">
+        insert into tb_admin(admin_name, id, password) values (#{userName},#{id},#{password})
+    </insert>
+
+    <select id="getAdminById" resultMap="AdminResult">
+        select admin_name,admin_token
+        from tb_admin
+        where id=#{id}
+        ORDER BY id DESC limit 1
+    </select>
+
+    <select id="getAdminByUserName" resultMap="AdminResult">
+        select admin_name,admin_token,id
+        from tb_admin
+        where admin_name = #{userName}
+        ORDER BY id DESC limit 1
+    </select>
+
+    <select id="getAdminByUserNameAndPassword" resultMap="AdminResult">
+        select admin_name,admin_token,id
+        from tb_admin
+        where admin_name = #{userName} and password = #{password}
+        ORDER BY id DESC limit 1
+    </select>
+
+    <update id="updateAdminToken" >
+        update tb_admin set admin_token = #{newToken} where id = #{adminId}
+    </update>
+
+    <select id="getAdminByToken" resultMap="AdminResult">
+         select admin_name,admin_token,id
+        from tb_admin
+        where admin_token = #{adminToken}
+        ORDER BY id DESC limit 1
+    </select>
+
+</mapper>

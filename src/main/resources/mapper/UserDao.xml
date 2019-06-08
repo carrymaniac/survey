@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdou.survey.dao.UserDao">
+    <resultMap id="UserResult" type="com.gdou.survey.entity.User">
+        <result property="userId" column="user_id"/>
+        <result property="creatTime" column="creat_time"/>
+        <result property="userName" column="user_name"/>
+        <result property="userQ1" column="user_q1"/>
+        <result property="userQ2" column="user_q2"/>
+        <result property="userQ3" column="user_q3"/>
+        <result property="userQ4" column="user_q4"/>
+        <result property="userQ5" column="user_q5"/>
+        <result property="userQ6" column="user_q6"/>
+        <result property="userQ7" column="user_q7"/>
+        <result property="userTel" column="user_tel"/>
+    </resultMap>
+
+    <select id="getUserById" resultMap="UserResult" >
+      select user_id,user_name,user_q1,user_q2,user_q3,user_q4,user_q5,user_q6,user_q7,creat_time,user_tel FROM tb_user where user_id=#{id} ORDER BY  user_id DESC limit 1
+    </select>
+    <insert id="addUser"    parameterType="com.gdou.survey.entity.User" >
+      insert into tb_user(user_name,user_q1,user_q2,user_q3,user_q4,user_q5,user_q6,user_q7,creat_time,user_tel) values (#{userName},#{userQ1},#{userQ2},#{userQ3},#{userQ4},#{userQ5},#{userQ6},#{userQ7},#{creatTime},#{userTel})
+    </insert>
+    <delete id="deleteUserById" parameterType="com.gdou.survey.entity.User">
+      delete from tb_user where user_id = #{userID}
+    </delete>
+    <!--用户列表分页-->
+    <select id="listUser" parameterType="Map" resultMap="UserResult">
+        select user_id,user_name,user_tel,user_q1,user_q2 from tb_user
+        order by user_id desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+    <select id="getTotalUser" resultType="int">
+        select count(*) from tb_user
+    </select>
+
+    <select id="countOption" resultType="int">
+        select count(*) from tb_user where ${question} LIKE '%${condition}%'
+    </select>
+
+</mapper>

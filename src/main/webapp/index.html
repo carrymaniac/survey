@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		 <!-- 第一个标签是引导浏览器使用最新内核。
+		 第二个标签是控制设备的视口宽度为屏幕宽度，然后静止缩放，模拟原生app的感觉。-->
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>在线肌肤测试</title>
+      <!-- 引入 Bootstrap -->
+      <link href="assets/css/bootstrap3.7.min.css" rel="stylesheet">
+	</head>
+	<style>
+		body{
+		    padding: 0;
+		    margin: 0;
+		    overflow: hidden;
+		}
+		.section{
+		    width: 100vw;
+		    height: 100vh;
+			font-weight: bold;
+   			font-size: 1.1em;
+		    background-color:#ffb4b9;
+			z-index:-10;
+			zoom: 1;
+			background-repeat: no-repeat;
+			background-size: cover;
+			-webkit-background-size: cover;
+			-o-background-size: cover;
+		    background-position: center 0;
+		}
+		@media screen and (max-width:768px){ 
+			.img-resp{ 
+				width: 70%;
+			}
+		}
+		.form-control {
+			background-color: #d9edf769;
+		}
+		/* 小型设备（手机，768px 起） */
+		@media screen and (max-width:768px){ 
+			.section{ 
+				background-size: cover;
+				-webkit-background-size: cover;
+				-o-background-size: cover;
+		    	background-image:url(assets/images/bg.png);
+			}
+		}
+		/* 小型设备（平板电脑，768px 起） */
+		@media screen and (min-width:768px){ 
+			.section{ 
+				background-size: contain;
+				-webkit-background-size: contain;
+				-o-background-size: contain;
+		    	background-image:url(assets/images/bg.png);
+			}
+		}
+		
+		/* 中型设备（台式电脑，992px 起） */
+		@media screen and (min-width:992px){ 
+			.section{ 
+				background-size: contain;
+				-webkit-background-size: contain;
+				-o-background-size: contain;
+		    	background-image:url(assets/images/bg.png);
+			}
+		}
+		
+		/* 大型设备（大台式电脑，1200px 起） */
+		@media screen and (min-width:1200px){ 
+			.section{ 
+				background-size: contain;
+				-webkit-background-size: contain;
+				-o-background-size: contain;
+		    	background-image:url(assets/images/bg-lg.png);
+			/*background-repeat: repeat;*/
+			}
+		}
+		
+		h1{
+		    margin: 0px;
+		}
+		.main-wrap{
+		    width: 100vw;
+		    height: 100vh;
+		    overflow: hidden;
+		    position: relative;
+		}
+		.main {
+		    position: absolute;
+		    top: 0px;
+		    left: 0px;
+		    transition: 500ms cubic-bezier(0.86, 0, 0.07, 1);
+		}
+		.a .container .row{
+			text-align: center;
+			padding-top: 35vh;
+			line-height: 30px;
+			/*font-size: 1em;
+			line-height: 1em;*/
+			color: #000;
+		}
+		.b .container,.c .container,.d .container,.g .container{
+			text-align: center;
+			font-size: 1em;
+			padding-top: 15vh;
+		}
+		.e .container{
+			text-align: center;
+			font-size: 1em;
+			padding-top: 7vh;
+		}
+		.h .container{
+			text-align: center;
+			font-size: 1em;
+			padding-top: 10vh;
+		}
+		.f .container{
+			text-align: center;
+			font-size: 1em;
+			padding-top: 10vh;
+		}
+		.i .container{
+			font-size: 1em;
+			padding-top: 25vh;
+			padding-left: 6vw;
+			padding-right: 6vw;
+		}
+		.i .container .submitText{
+			text-align: center;
+		}
+		.i .container .form-group {
+		    margin-bottom: 5vh;
+		}
+		.j .container .row{
+			text-align: center;
+			padding-top: 16vh;
+			line-height: 30px;
+			color: #000;
+		}
+		.j .container .row .list-group {
+		    margin-top: 5vh;
+		}
+		.j .container .row .list-group-item {
+		    background-color:#ff7aa336 !important;
+		    background-color: white;
+		    border: none;
+		    margin-top: 1vh;
+		}
+		.a .nav{
+			background: #FFFFFF;
+		}
+		.a .nav .admin{
+			float: left;
+			background: none;
+		}
+		.a .nav .logo{
+		}
+		.padding-3{
+			padding: 3%;
+		}
+		/* .img-padding{
+			padding: 15%;
+		} */
+		.margin-bottom{
+			margin-bottom: 12vh;
+		}
+		.margin-bottom-5{
+			margin-bottom: 5vh;
+		}
+		/* 自定义radio */
+		.radio {
+            position: relative;
+            line-height: 30px;
+        }
+		.checkbox {
+            position: relative;
+            line-height: 1.5em;
+        }
+        
+        .radio input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+        }
+        
+        .checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+        }
+
+        .radio label {
+            position: absolute;
+            left: 5px;
+            top: 3px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #999;
+        }
+        .checkbox label {
+            position: absolute;
+            left: 5px;
+            top: 3px;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #999;
+        }
+        /*设置选中的input的样式*/
+        /* + 是兄弟选择器,获取选中后的label元素*/
+        .radio input:checked+label,.checkbox input:checked+label{ 
+            background-color: #fe6d32;
+            border: 1px solid #fe6d32;
+        }
+        
+        .radio input:checked+label::after,.checkbox input:checked+label::after {
+            position: absolute;
+            content: "";
+            width: 5px;
+            height: 10px;
+            top: 3px;
+            left: 6px;
+            border: 2px solid #fff;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg)
+        }
+		.radio span,.checkbox span{
+			position: absolute;
+			left: 30px;
+		}
+		/* class="glyphicon glyphicon-user" */
+	</style>
+	<body>
+		<div class="main-wrap">
+		    <div class="main">
+		        <div class="section a">
+		        	<ul class="nav nav-pills">
+					  <li class="admin">
+				        <a href="login.html">
+				          <span>
+							<img src="assets/images/admin.png" class="img-resp">
+						  </span>
+				        </a>
+					  </li>
+					  <!--<li class="logo"><a href="#">依薇蓝</a></li>-->
+					</ul>
+		        	<div class="container">
+		        		<div class="row">
+						  	<div class="col-xs-2 col-md-2 col-lg-2"></div>
+						  	<div class="col-xs-8 col-md-8 col-lg-8">
+						  		<h1>在线肌肤测试</h1>
+		          		 		<div id="readyTest">
+									<h3 style="margin-top:5vh;">开始测试</h3>
+									<img src="assets/images/down.png" alt=""style="margin: 5vh auto;">
+								</div>
+						  	</div>
+					  		<div class="col-xs-2 col-md-2 col-lg-2"></div>
+		        		</div>
+		        	</div>
+			    </div>
+		        <div class="section b">
+		        	<div class="container">
+		        		<h2>1.您的年龄区间是在？</h2>
+		        		<div class="row">
+		        			<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 col-sm-offset-3 col-md-offset-3  col-lg-offset-3 padding-3 margin-bottom-5">
+			        			<img src="assets/images/one/0.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="one1" type="radio" name="one" value="A">
+									<label for="one1"></label>
+									<span>18岁以下</span>
+								</div>
+			        		</div>
+			        		<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 padding-3 margin-bottom-5">
+								<img src="assets/images/one/1.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="one2" type="radio" name="one" value="B">
+									<label for="one2"></label>
+									<span>18-25岁</span>
+								</div>
+			        		</div>
+			        		<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 padding-3 margin-bottom-5">
+								<img src="assets/images/one/2.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="one3" type="radio" name="one" value="C">
+									<label for="one3"></label>
+									<span>25-30岁</span>
+								</div>
+			        		</div>
+		        			<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 col-sm-offset-3 col-md-offset-3  col-lg-offset-3 padding-3">
+								<img src="assets/images/one/3.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="one4" type="radio" name="one" value="D">
+									<label for="one4"></label>
+									<span>30-35岁</span>
+								</div>
+			        		</div>
+			        		<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 padding-3">
+								<img src="assets/images/one/4.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="one5" type="radio" name="one" value="E">
+									<label for="one5"></label>
+									<span>35-40岁</span>
+								</div>
+			        		</div>
+			        		<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 padding-3">
+								<img src="assets/images/one/5.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="one6" type="radio" name="one" value="F">
+									<label for="one6"></label>
+									<span>40岁以上</span>
+								</div>
+			        		</div>
+		        		</div>
+	        		</div>
+		        </div>
+		        <div class="section c">
+		        	<div class="container">
+		        		<h2>2.请您描述下您的皮肤特征？</h2>
+		        		<div class="row">
+		        			<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2  col-xs-offset-1  col-sm-offset-1  col-md-offset-3  col-lg-offset-3 padding-3 margin-bottom-5">
+			        			<img src="assets/images/two/0.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="two1" type="radio" name="two" value="A">
+									<label for="two1"></label>
+									<span>干燥，缺水</span>
+								</div>
+			        		</div>
+			        		<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2  col-xs-offset-2  col-sm-offset-2  col-md-offset-2  col-lg-offset-2 padding-3 margin-bottom-5">
+								<img src="assets/images/two/1.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="two2" type="radio" name="two" value="B">
+									<label for="two2"></label>
+									<span>T区油，U区干</span>
+								</div>
+			        		</div>
+			        		<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2  col-xs-offset-1  col-sm-offset-1  col-md-offset-3  col-lg-offset-3 padding-3">
+								<img src="assets/images/two/2.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="two3" type="radio" name="two" value="C">。
+									<label for="two3"></label>
+									<span>全脸泛油，易长痘</span>
+								</div>
+			        		</div>
+		        			<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2  col-xs-offset-2  col-sm-offset-2  col-md-offset-2  col-lg-offset-2 padding-3">
+								<img src="assets/images/two/3.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="two4" type="radio" name="two" value="D">
+									<label for="two4"></label>
+									<span>干燥，皮肤易过敏</span>
+								</div>
+			        		</div>
+		        		</div>
+	        		</div>
+		        </div>
+		        <div class="section d">
+		        	<div class="container">
+		        		<h2>3.您素颜时的肤色属于哪一种？</h2>
+		        		<div class="row">
+		        			<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2  col-xs-offset-1  col-sm-offset-1  col-md-offset-3  col-lg-offset-3 padding-3 margin-bottom-5">
+			        			<img src="assets/images/three/0.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="three1" type="radio" name="three" value="A">
+									<label for="three1"></label>
+									<span>白皙</span>
+								</div>
+			        		</div>
+			        		<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2  col-xs-offset-2  col-sm-offset-2  col-md-offset-2  col-lg-offset-2 padding-3 margin-bottom-5">
+								<img src="assets/images/three/1.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="three2" type="radio" name="three" value="B">
+									<label for="three2"></label>
+									<span>粉嫩</span>
+								</div>
+			        		</div>
+			        		<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2  col-xs-offset-1  col-sm-offset-1  col-md-offset-3  col-lg-offset-3 padding-3">
+								<img src="assets/images/three/2.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="three3" type="radio" name="three" value="C">
+									<label for="three3"></label>
+									<span>暗黄</span>
+								</div>
+			        		</div>
+		        			<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2  col-xs-offset-2  col-sm-offset-2  col-md-offset-2  col-lg-offset-2 padding-3">
+								<img src="assets/images/three/3.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="three4" type="radio" name="three" value="D">
+									<label for="three4"></label>
+									<span>大麦色</span>
+								</div>
+			        		</div>
+		        		</div>
+	        		</div>
+		        </div>
+				<div class="section e">
+					<div class="container">
+						<h2>4.您的脸部有什么皮肤问题？(多选)</h2>
+						<div class="row">
+							<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2  col-sm-offset-2  col-md-offset-2  col-lg-offset-2 margin-bottom padding-3">
+								<img src="assets/images/four/0.png" class="img-circle img-responsive img-padding">
+								<div class="checkbox">
+									<input id="four1" type="checkbox" name="four" value="A">
+									<label for="four1"></label>
+									<span>黑头/毛孔</span>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 margin-bottom padding-3">
+								<img src="assets/images/four/1.png" class="img-circle img-responsive img-padding">
+								<div class="checkbox">
+									<input id="four2" type="checkbox" name="four" value="B">
+									<label for="four2"></label>
+									<span>黑眼圈/眼袋/脂肪粒/眼纹</span>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 margin-bottom padding-3">
+								<img src="assets/images/four/2.png" class="img-circle img-responsive img-padding">
+								<div class="checkbox">
+									<input id="four3" type="checkbox" name="four" value="C">
+									<label for="four3"></label>
+									<span>痘痘/痘印</span>
+								</div>
+							</div>
+							<div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 margin-bottom padding-3">
+								<img src="assets/images/four/3.png" class="img-circle img-responsive img-padding">
+								<div class="checkbox">
+									<input id="four4" type="checkbox" name="four" value="D">
+									<label for="four4"></label>
+									<span>干燥/紧绷</span>
+								</div>
+							</div>
+							<div class="col-xs-3 col-sm-2 col-md-2 col-lg-2  col-sm-offset-2  col-md-offset-2  col-lg-offset-2 margin-bottom padding-3">
+								<img src="assets/images/four/4.png" class="img-circle img-responsive img-padding">
+								<div class="checkbox">
+									<input id="four5" type="checkbox" name="four" value="E">
+									<label for="four5"></label>
+									<span>暗黄/斑点</span>
+								</div>
+							</div>
+							<div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 margin-bottom padding-3">
+								<img src="assets/images/four/5.png" class="img-circle img-responsive img-padding">
+								<div class="checkbox">
+									<input id="four6" type="checkbox" name="four" value="F">
+									<label for="four6"></label>
+									<span>皱纹</span>
+								</div>
+							</div>
+							<div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 margin-bottom padding-3">
+								<img src="assets/images/four/6.png" class="img-circle img-responsive img-padding">
+								<div class="checkbox">
+									<input id="four7" type="checkbox" name="four" value="G">
+									<label for="four7"></label>
+									<span>出油</span>
+								</div>
+							</div>
+						</div>
+						<div id="readyTest">
+							<img src="assets/images/down.png" alt=""style="margin: 2vh auto;">
+						</div>
+					</div>
+				</div>
+		        <div class="section f">
+		        	<div class="container">
+		        		<h2>5.您最想解决的皮肤问题是？</h2>
+		        		<div class="row">
+		        			<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2  col-sm-offset-3  col-md-offset-3  col-lg-offset-3 padding-3 margin-bottom">
+			        			<img src="assets/images/five/0.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="five1" type="radio" name="five" value="A">
+									<label for="five1"></label>
+									<span>敏感/脆弱</span>
+								</div>
+			        		</div>
+			        		<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 padding-3 margin-bottom">
+								<img src="assets/images/five/1.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="five2" type="radio" name="five" value="B">
+									<label for="five2"></label>
+									<span>黑头粉刺/毛孔粗大/皮肤粗糙</span>
+								</div>
+			        		</div>
+			        		<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 padding-3 margin-bottom">
+								<img src="assets/images/five/2.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="five3" type="radio" name="five" value="C">
+									<label for="five3"></label>
+									<span>痘痘/痘印</span>
+								</div>
+			        		</div>
+		        			<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2  col-sm-offset-3 col-md-offset-3  col-lg-offset-3 padding-3">
+								<img src="assets/images/five/3.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="five4" type="radio" name="five" value="D">
+									<label for="five4"></label>
+									<span>细纹/皮肤松弛</span>
+								</div>
+			        		</div>
+			        		<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 padding-3">
+								<img src="assets/images/five/4.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="five5" type="radio" name="five" value="E">
+									<label for="five5"></label>
+									<span>暗黄/色斑</span>
+								</div>
+			        		</div>
+		        			<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 padding-3">
+								<img src="assets/images/five/5.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="five6" type="radio" name="five" value="F">
+									<label for="five6"></label>
+									<span>黑眼圈/轻度眼袋/脂肪粒</span>
+								</div>
+			        		</div>
+		        		</div>
+	        		</div>
+		        </div>
+		        <div class="section g">
+		        	<div class="container">
+						<h2>6.您有没有对皮肤进行针对性护理？</h2>
+						<div class="row">
+							<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2  col-sm-offset-3  col-md-offset-3  col-lg-offset-3 padding-3">
+								<img src="assets/images/six/0.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="six1" type="radio" name="six" value="A">
+									<label for="six1"></label>
+									<span>从无，现在想要护理</span>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 padding-3">
+								<img src="assets/images/six/1.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="six2" type="radio" name="six" value="B">
+									<label for="six2"></label>
+									<span>有，但效果不佳</span>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 padding-3">
+								<img src="assets/images/six/2.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="six3" type="radio" name="six" value="C">
+									<label for="six3"></label>
+									<span>有，皮肤逐渐改善</span>
+								</div>
+							</div>
+						</div>
+	        		</div>
+		        </div>
+		        <div class="section h">
+		        	<div class="container">
+						<h2>7.您以往选择护肤品的依据是？</h2>
+						<div class="row">
+							<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2  col-xs-offset-1  col-sm-offset-1  col-md-offset-3  col-lg-offset-3 padding-3 margin-bottom-5">
+								<img src="assets/images/seven/0.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="seven1" type="radio" name="seven" value="A">
+									<label for="seven1"></label>
+									<span>朋友推荐</span>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2  col-xs-offset-2  col-sm-offset-2  col-md-offset-2  col-lg-offset-2 padding-3 margin-bottom-5">
+								<img src="assets/images/seven/1.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="seven2" type="radio" name="seven" value="B">
+									<label for="seven2"></label>
+									<span>实体店随意选</span>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2  col-xs-offset-1  col-sm-offset-1  col-md-offset-3  col-lg-offset-3 padding-3">
+								<img src="assets/images/seven/2.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="seven3" type="radio" name="seven" value="C">
+									<label for="seven3"></label>
+									<span>倾向于知名度高的大品牌</span>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2  col-xs-offset-2  col-sm-offset-2  col-md-offset-2  col-lg-offset-2 padding-3">
+								<img src="assets/images/seven/3.png" class="img-circle img-responsive">
+								<div class="radio">
+									<input id="seven4" type="radio" name="seven" value="D">
+									<label for="seven4"></label>
+									<span>了解护肤成分，选择适合自己具体肤质的</span>
+								</div>
+							</div>
+						</div>
+	        		</div>
+		        </div>
+		        <div class="section i">
+		        	<div class="container">
+		        		<div class="row">
+		        			<div  class="col-sm-8 col-md-8 col-lg-8 col-sm-offset-2 col-md-offset-2  col-lg-offset-2">
+			        			<div class="form-group input-group-lg">
+								    <label for="name">姓名</label>
+								    <input type="text" class="form-control" id="name" placeholder="请输入姓名">
+							    </div>	
+								<div class="form-group input-group-lg">
+								    <label for="name">您的手机（接收护肤建议）</label>
+								    <input type="text" class="form-control" id="phone" placeholder="请输入手机">
+							  	</div>
+							    <div class="form-group submitText">
+							        <button class="btn btn-primary btn-lg" id="onsubmit">完成测试</button>
+							    </div>
+			        		</div>
+		        		</div>
+	        		</div>
+		        </div>
+		        <div class="section j">
+		        	<div class="container">
+		        		<div class="row">
+						  	<div class="col-xs-10 col-md-8 col-lg-8 col-xs-offset-1  col-md-offset-2  col-lg-offset-2">
+						  		<h3 id="skin">您的肤质为：</h3>
+						  		<ul class="list-group" id="skinQuest">
+									<li class="list-group-item">为何总补水皮肤还是这么干？</li>
+									<li class="list-group-item">补水之后如何做到深层锁住水分？</li>
+									<li class="list-group-item">干性长斑？怎样合理有效淡化色素？</li>
+									<li class="list-group-item">想要了解更多专业护肤知识，领取免费护肤方案，可联系你的专属护肤老师。</li>
+								</ul>
+						  	</div>
+		        		</div>
+		        	</div>
+		        </div>
+		    </div>
+		</div>
+	</body>     
+	  <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+	  <script src="assets/js/jquery-2.0.3.min.js"></script>
+	  <!-- 包括所有已编译的插件 -->
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/hammer.min.js"></script>
+	<script src="assets/js/api.js"></script>
+	<script>
+		$(function(){
+		var sHeight = document.querySelector('.a').clientHeight;
+		//获取一屏的高度，判断该移动多少
+		var sLength = document.querySelectorAll('.section').length;
+		//判断有几屏页面
+		var sIndex = 0;//标记当前第几页
+		var sScroll = false;//滚动时就不再触发事件，防止误点
+		var main = document.querySelector('.main'); //需要移动的DOM
+		window.onmousewheel = function(e){
+		    //PC端的滚轮事件，嗯不兼容火狐
+		    if(!sScroll){
+		        if(e.wheelDelta>0){
+		            //上一页
+		            if(sIndex == 0){return; }
+		            sIndex--;
+		            scrollTo(sIndex);
+		        }else{
+		            //下一页
+		            if(sIndex == sLength-1){return;}
+		            sIndex++;
+		            scrollTo(sIndex);
+		        }
+		    }
+		}
+		
+		function scrollTo(i){
+		    //操作动画的函数
+		    sScroll = true;
+		    main.style.top = -i*sHeight + 'px';
+		    setTimeout(function(){sScroll = false}, 700);
+		}
+		
+		var hamm = new Hammer(document.querySelector('.main-wrap'));
+		hamm.get('swipe').set({ direction: Hammer.DIRECTION_ALL});
+		//hammer默认关闭上下swipe 设置开启上下滑屏
+		hamm.on('swipedown', function(){
+		        if(!sScroll){
+		                //上一页
+		                if(sIndex == 0){return; }
+		                sIndex--;
+		                scrollTo(sIndex);
+		        }
+		
+		});
+		hamm.on('swipeup', function(){
+		        if(!sScroll){
+		                //下一页
+		                if(sIndex == sLength-1){return;}
+		                sIndex++;
+		                scrollTo(sIndex);
+		        }        
+		
+		});
+		// 提交表单后显示结论页
+		$("#onsubmit").click(function(){
+				var one = $("input[name='one']:checked").val();
+				var two = $("input[name='two']:checked").val();
+				var three = $("input[name='three']:checked").val();
+				var five = $("input[name='five']:checked").val();
+				var six = $("input[name='six']:checked").val();
+				var seven = $("input[name='seven']:checked").val();
+				var name = $("#name").val();
+				var phone = $("#phone").val();
+				var four = "";
+				$("input[name='four']:checked").each(function(){  
+					four+=$(this).val();
+				});
+				// console.log(one+" "+two+" "+three+" four:"+four+" "+five+" "+six+" "+seven+" "+name+" "+phone)
+				var data={
+					"creatTime": null,
+					"userName": name,
+					"userQ1": one,
+					"userQ2": two,
+					"userQ3": three,
+					"userQ4": four,
+					"userQ5": five,
+					"userQ6": six,
+					"userQ7": seven,
+					"userTel": phone
+				}
+				if(!phone.match(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/)){
+					alert("请输入正确的手机号");
+				}else if(name!=""&&one!=undefined&&two!=undefined&&three!=undefined&&four!=undefined&&five!=undefined&&six!=undefined&&seven!=undefined){
+					$.ajax({
+		                    type: "POST",                                         //ajax的方式为post(get方式对传送数据长度有限制)
+		                    url: api+"/survey/users/save",           //一般处理程序页面AddUser.ashx(在2中会写出该页面内容)
+		                    dataType: "json",                                   //数据传回的格式为json
+							contentType: "application/json",
+		                    data: JSON.stringify(data),       //要传送的数据键值对adduserName为键（方便2中的文件用此名称接受数据）txtuserName为值（要传递的变量，例如用户名）
+		                    success: function (res) {
+								if(res.resultCode==200){
+									alert("提交成功！")
+								}else{
+									alert(res.message)
+								}
+		                    },error:function(res){
+								alert("请求失败");
+							}
+		                })
+					if(two=='A'){
+						$("#skin").append("干性皮肤");
+						$("#skinQuest li").eq(0).html("为何总补水皮肤还是这么干？");
+						$("#skinQuest li").eq(1).html("为补水之后如何做到深层锁住水分？");
+						$("#skinQuest li").eq(2).html("干性长斑？怎样合理有效淡化色素？");
+					}else if(two=='B'){
+						$("#skin").append("混合性皮肤");
+						$("#skinQuest li").eq(0).html("混合性皮肤需要去角质吗？");
+						$("#skinQuest li").eq(1).html("混合性皮肤如果同时做好补水控油？");
+						$("#skinQuest li").eq(2).html("为美白误区你踩了多少雷？");
+					}else if(two=='C'){
+						$("#skin").append("油性皮肤");
+						$("#skinQuest li").eq(0).html("油性皮肤为何越控越油？");
+						$("#skinQuest li").eq(1).html("油性皮肤应不应该多敷面膜？");
+						$("#skinQuest li").eq(2).html("当毛孔粗大/黑头粉刺风暴来袭如何应对？");
+					}else if(two=='D'){
+						$("#skin").append("敏感性皮肤");
+						$("#skinQuest li").eq(0).html("敏感性皮肤还有机会恢复中性皮肤吗？");
+						$("#skinQuest li").eq(1).html("什么原因让我们越护肤越敏感？");
+						$("#skinQuest li").eq(2).html("敏感肌如何正确做好清洁和补水？");
+					}
+					if(!sScroll){
+							//下一页
+							if(sIndex == sLength-1){return;}
+							sIndex++;
+							scrollTo(sIndex);
+					} 
+				}else{
+					alert("选项不能为空");
+				}
+		})
+		//选择选项后自动跳下一页
+		$(":radio,#readyTest").click(function(){
+		        if(!sScroll){
+		                //下一页
+		                if(sIndex == sLength-1){return;}
+		                sIndex++;
+		                scrollTo(sIndex);
+		        } 
+		})
+		})//jq
+	</script>
+</html>
